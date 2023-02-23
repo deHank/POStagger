@@ -1,14 +1,27 @@
 # This is a sample Python script.
-
+import re
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import sys
+from sys import argv
 
-train = sys.argv[1]
+argv
+train = argv[1]
 
-testSet = sys.argv[2]
+testSet = argv[2]
 
-taggedSet = sys.argv[4]
+taggedSet = argv[4]
+
+trainData = ''
+
+with open(train, "r") as f:
+    trainData += f.read()
+
+#Getting all of the words in the corpus
+res = re.findall(r'\+|[\/\w,]+', trainData)
+
+tags = re.findall(r'\/[A-Z,\/]+', trainData)
+
+
 
 #Tag regex: /\/[A-Z#$.,:()"']*/gm
 {}
