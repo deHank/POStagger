@@ -17,9 +17,9 @@ with open(train, "r") as f:
     trainData += f.read()
 
 #Getting all of the words in the corpus
-res = re.findall(r'\+|[\/\w,]+', trainData)
+res = re.findall(r'\S+', trainData)
 
-tags = re.findall(r'\/[A-Z,\/]+', trainData)
+tags = re.findall(r'/\/[\S]+/gm')
 
 
 
