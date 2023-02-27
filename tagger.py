@@ -16,8 +16,14 @@ trainData = ''
 with open(train, "r") as f:
     trainData += f.read()
 
+#Data Cleanup, the \/ is to remove any names like McGraw\/Hill/NNP
+#makes it into McGrawHill/NNP
+trainData = trainData.replace('[','')
+trainData = trainData.replace(']','')
+trainData = trainData.replace('\/', '')
 # Getting all of the words in the corpus
 res = re.findall(r'\S+', trainData)
+
 
 #tags = re.findall(r'/\/[\S]+/gm')
 
@@ -27,17 +33,23 @@ res = re.findall(r'\S+', trainData)
 tagCount = {}
 wordCount = {}
 for j in range(len(res)):
+
     #Splitting word before tag, so if it was Pierre/NNP, i'd get Pierre
     word = res[j].partition("/")[0]
     # for i in range(len(res) - j + 1):
     # Generate our n-grams, this will generate n-grams up to the size of the ngram parameter
-    tagCount = tuple(word)
+    tag = res[j].partition("/")[2]
 
     # Counting ngram occurence
-    if word in wordCount:
+    if word in wordCount and (word != "[") and (word != "]"):
         wordCount[word] += 1
     else:
         wordCount[word] = 1
 
-# Tag regex: /\/[A-Z#$.,:()"']*/gm
+    if tag in tagCount:
+        tagCount[tag] += 1
+    else:
+        tagCount[tag] = 1
+
+# Now, I need 2 tuples. ((Word),{Tag), num of times)
 {}
