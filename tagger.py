@@ -32,19 +32,37 @@ res = re.findall(r'\S+', trainData)
 
 tagCount = {}
 wordCount = {}
+wordTag = ()
+wordTagCount = {}
+tagAndPrev = {}
+tagAndPrevTuple = ()
 for j in range(len(res)):
-
+    tag = res[j].partition("/")[2]
+    prevTag = res[j-1].partition("/")[2]
+    if j > 0:
+        #This will store the count of tags and previous tags
+        #Stored in tuple form (expected, given) aka (current, previous)
+        tagAndPrevTuple = (tag,prevTag)
+    if tagAndPrevTuple in tagAndPrev:
+        tagAndPrev[tagAndPrevTuple] += 1
+    else:
+        tagAndPrev[tagAndPrevTuple] = 1
     #Splitting word before tag, so if it was Pierre/NNP, i'd get Pierre
     word = res[j].partition("/")[0]
     # for i in range(len(res) - j + 1):
     # Generate our n-grams, this will generate n-grams up to the size of the ngram parameter
-    tag = res[j].partition("/")[2]
 
+    wordTag = (word,tag)
     # Counting ngram occurence
-    if word in wordCount and (word != "[") and (word != "]"):
+    if word in wordCount:
         wordCount[word] += 1
     else:
         wordCount[word] = 1
+
+    if wordTag in wordTagCount:
+        wordTagCount[wordTag] += 1
+    else:
+        wordTagCount[wordTag] = 1
 
     if tag in tagCount:
         tagCount[tag] += 1
