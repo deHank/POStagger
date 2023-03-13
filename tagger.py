@@ -39,14 +39,15 @@ tagAndPrevTuple = ()
 for j in range(len(res)):
     tag = res[j].partition("/")[2]
     prevTag = res[j-1].partition("/")[2]
+    #had to make j>0 check bc a tag at 0 would have no previous tag
     if j > 0:
         #This will store the count of tags and previous tags
         #Stored in tuple form (expected, given) aka (current, previous)
         tagAndPrevTuple = (tag,prevTag)
-    if tagAndPrevTuple in tagAndPrev:
-        tagAndPrev[tagAndPrevTuple] += 1
-    else:
-        tagAndPrev[tagAndPrevTuple] = 1
+        if tagAndPrevTuple in tagAndPrev:
+            tagAndPrev[tagAndPrevTuple] += 1
+        else:
+            tagAndPrev[tagAndPrevTuple] = 1
     #Splitting word before tag, so if it was Pierre/NNP, i'd get Pierre
     word = res[j].partition("/")[0]
     # for i in range(len(res) - j + 1):
@@ -71,5 +72,16 @@ for j in range(len(res)):
 
 # Now, I need 2 tuples. ((Word),{Tag), num of times)
 # So at this point, I need to someonehow use chainrule and the 2 assumptions in order to calculate
-# the proabbility 
+# the proabbility
+tagAndPrev_Matrix = {}
+for tagPrev in tagAndPrev:
+    tagAndPrevCount = tagAndPrev[tagPrev]
+    prev_tag, tag = tagPrev
+    prob = tagAndPrevCount / tagCount[prev_tag]
+
+    if prev_tag in tagAndPrev_Matrix:
+        tagAndPrev_Matrix[prev_tag][tag] = prob
+    else:
+        tagAndPrev_Matrix[prev_tag] = {tag: prob}
+
 {}
