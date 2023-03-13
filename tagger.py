@@ -70,4 +70,6 @@ for j in range(len(res)):
         tagCount[tag] = 1
 
 # Now, I need 2 tuples. ((Word),{Tag), num of times)
+# So at this point, I need to someonehow use chainrule and the 2 assumptions in order to calculate
+# the proabbility 
 {}
