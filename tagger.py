@@ -76,9 +76,14 @@ for j in range(len(res)):
 tagAndPrev_Matrix = {}
 for tagPrev in tagAndPrev:
     tagAndPrevCount = tagAndPrev[tagPrev]
+    #so if it was RRR, VBV, Prev tag would be RRR and tag would be VBV
     prev_tag, tag = tagPrev
     prob = tagAndPrevCount / tagCount[prev_tag]
 
+    #Adding probability of a tag coming with its prior tag to a 2d matrix
+    #Dictionary, with another dicionarty in it
+    #if the prev tag is not in the dicionary, it will make a dicionary dictionary with
+    #the tag as the key and a prev tag as the key to the matrix
     if prev_tag in tagAndPrev_Matrix:
         tagAndPrev_Matrix[prev_tag][tag] = prob
     else:
