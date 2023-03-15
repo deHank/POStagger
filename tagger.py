@@ -98,8 +98,8 @@ for wordTag in wordTagCount:
     prob = wordAndTagCount/tagCount[tag]
 
     if wordTag in wordTagMatrix:
-        wordTagMatrix[wordTag][tag] = prob
+        wordTagMatrix[word][tag] = prob
     else:
-        wordTagMatrix[wordTag] = {tag: prob}
+        wordTagMatrix[word] = {tag: prob}
 
 {}
