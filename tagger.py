@@ -89,4 +89,12 @@ for tagPrev in tagAndPrev:
     else:
         tagAndPrev_Matrix[prev_tag] = {tag: prob}
 
-{}
+#Now for the first pt of the equation we need to get the P(word|tag)
+wordTagMatrix = {}
+for wordTag in wordTagCount:
+    #getting the count of the word tag
+    wordAndTagCount = wordTagCount[wordTag]
+    prob = wordAndTagCount/tagCount[wordTag]
+
+    if wordTag in wordTagMatrix:
+        wordTagMatrix[wordTag][]
