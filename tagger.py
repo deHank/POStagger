@@ -94,7 +94,12 @@ wordTagMatrix = {}
 for wordTag in wordTagCount:
     #getting the count of the word tag
     wordAndTagCount = wordTagCount[wordTag]
-    prob = wordAndTagCount/tagCount[wordTag]
+    word, tag = wordTag
+    prob = wordAndTagCount/tagCount[tag]
 
     if wordTag in wordTagMatrix:
-        wordTagMatrix[wordTag][]
+        wordTagMatrix[wordTag][tag] = prob
+    else:
+        wordTagMatrix[wordTag] = {tag: prob}
+
+{}
